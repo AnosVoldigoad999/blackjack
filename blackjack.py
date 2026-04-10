@@ -92,7 +92,7 @@ def game():
     #deal first two cards
     
     #conditions for winning or losing
-    if(player_total>21 or (dealer_total>player_total and dealer_total <=21) or dealer_total>21 or (dealer_total==player_total and first_deal!=True) or player_total==21 or dealer_total==21):
+    if(player_total>21 or (dealer_total>player_total and dealer_total <=21) or dealer_total>21 or (dealer_total==player_total and first_deal!=True and player_stands==True) or player_total==21 or dealer_total==21):
         if(player_total>21):
             print("Player bust! Dealer wins!")
             player_stands = True
