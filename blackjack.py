@@ -43,6 +43,12 @@ blackjack_deck= [
 ]
 
 
+def updatePlayerBalance(balance, amount, operation):
+    if(operation == "add"):
+        return balance+amount
+    else:
+        return balance-amount
+
 
 def welcome():
     for option in starteroptions:
@@ -62,7 +68,7 @@ def deposit():
     global playerbalance
     print("How much would you like to deposit?")
     amount = int(input(">> "))
-    playerbalance += amount
+    playerbalance = updatePlayerBalance(playerbalance, amount, "add")
     print(f"{amount} deposited!, new balance: {playerbalance}")
 
 def bet():
@@ -72,7 +78,7 @@ def bet():
     bet_amount= int(input("Enter bet: "))  
     if(bet_amount > 0):
         if(bet_amount <= playerbalance):
-            playerbalance -= bet_amount
+            playerbalance = updatePlayerBalance(playerbalance, bet_amount, "subtract")
             print("Bet taken, dealing cards...")
         else:
             print(f"Bet greater than current balance, please input a value less than or equal to {playerbalance}")
@@ -104,7 +110,8 @@ def game():
             return
         elif(player_total==21):
             print("Player wins! (Blackjack)")
-            playerbalance += bet_amount*2
+            #playerbalance += bet_amount*2
+            playerbalance = updatePlayerBalance(playerbalance, bet_amount*2, "add")
             player_stands = True
             gotten_players_cards = getCards(players_cards)
             gotten_dealers_cards = getCards(dealers_cards)
@@ -136,7 +143,7 @@ def game():
 
         elif(dealer_total>21):
             print("Player wins! Dealer bust!")
-            playerbalance += bet_amount*2
+            playerbalance = updatePlayerBalance(playerbalance, bet_amount*2, "add")
             player_stands = True
             gotten_players_cards = getCards(players_cards)
             gotten_dealers_cards = getCards(dealers_cards)
@@ -146,7 +153,7 @@ def game():
             return
         elif(dealer_total == player_total):
             print("Push!")
-            playerbalance += bet_amount
+            playerbalance = updatePlayerBalance(playerbalance, bet_amount, "add")
             player_stands = True
             gotten_players_cards = getCards(players_cards)
             gotten_dealers_cards = getCards(dealers_cards)
